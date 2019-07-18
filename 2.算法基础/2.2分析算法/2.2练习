@@ -1,0 +1,21 @@
+2.2-1
+O(n^3) ??
+
+2.2-2
+function selectSort(array){
+    for(let i = 0; i < array.length - 1; i++){
+        let minIndex = i;
+        for(let j = i + 1; j < array.length; j++){
+            if(array[j] < array[minIndex]){
+                minIndex = j;
+            }
+        }
+        [ array[i], array[minIndex] ] = [ array[minIndex], array[i] ];
+    }
+}
+
+2.2-3
+(n+1)/2
+
+2.2-4
+随机化处理输入，减少最坏情况发生概率； 改进算法，减少时间最高项
