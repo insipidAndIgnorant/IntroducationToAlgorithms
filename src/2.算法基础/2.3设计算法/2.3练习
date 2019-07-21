@@ -1,0 +1,107 @@
+2.3-1
+[3,41,52,26,38,57,9,49] =>
+[3,41,52,26]            [38,57,9,49] =>
+[3,41] [52,26]          [38,57] [9,49] =>
+[3] [41] [52] [26]      [38] [57] [9] [49] =>
+[3,41] [26,52]          [38,57] [9,49] =>
+[3,26,41,52]            [9,38,49,57] =>
+[3,9,26,38,41,49,52,57]
+
+2.3-2
+function merge(leftArr, rightAr){
+    // 将已排序好的两个数组合并
+    let preLength = leftArr.length;
+    let apdLength = rightAr.length;
+    let left = 0, right = 0, result = [];
+
+    while( left < preLength && right < apdLength){
+        if(leftArr[left] < rightAr[right]){ // 左边比右边小 左下标+1
+            result.push( leftArr[left++] )
+        }else{
+            result.push( rightAr[right++] )
+        }
+    }
+    // 处理剩余
+    while(left < preLength ){
+        result.push( leftArr[left++] ); //可以直接改为concat
+    }
+    while(right < apdLength ){
+        result.push( rightAr[right++] );
+    }
+
+    return result;
+}
+
+2.3-3
+T(n) = 2T(n/2) + n  {n=2^k  k > 1}
+T(n) = 2  {n = 2}
+
+令：
+F(K) = T(2^k)  <=> F(k) = 2^k * lg 2^k
+F(k+1) = T( 2^(k+1) )
+       = 2 T( 2^(k+1)/2 ) + 2^(k+1)
+       = 2 T(2^k) + 2^(k+1)
+       = 2 F(k) + 2^(k+1)
+       = 2 2^k * lg 2^k  + 2^(k+1)
+       = 2^(k+1) * (lg2^k + 1)
+       = 2^(k+1) * (lg2^k + lg2)
+       = 2^(k+1) * lg2^(k+1)
+
+2.3-4
+function ResuInsert(array, start = 0, end = array.length-1){
+    let length = end - start + 1,
+    key = array[end];
+
+    let i; //记录插入位置
+    if(length === 1){
+        return;
+    }else{
+        ResuInsert(array, start, end - 1);
+        for( i = end - 1; i>= start && array[i] > key; i--){
+            array[i+1] = array[i]
+        }
+        array[i+1] = key // i--偏移修补
+    }
+}
+
+2.3-5
+// 二分搜索 假设输入已经排序
+function binarySearch( array,item ){
+    let low = 0,
+    high = array.length - 1,
+    mid, element;
+
+    while (low <= high){
+        mid = Math.floor((low + high) / 2);
+        element = array[mid];
+        if (element < item) {
+            low = mid + 1;
+        } else if (element > item) {
+            high = mid - 1;
+        } else {
+            return mid;
+        }
+    }
+    return;
+};
+
+2.3-6
+不能 查找到后还还是要进行插入操作
+
+2.3-7
+//参考CSDN vikYao 解法
+先对数组进行归并排序 O(n lg n);
+再进行二分查找 O(n lg n)
+总计O(n lg n);
+
+function sumSearch( array, sum ){
+    mergeSort( array );
+    for(let i = 0; i < array.leng; i++){
+        if( binarySearch( array, sum - array[i] ) !== undefined ){
+            return true;
+        }
+    }
+    return false;
+}
+
+
