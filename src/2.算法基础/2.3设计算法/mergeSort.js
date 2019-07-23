@@ -5,7 +5,7 @@ function mergeSort(array){
     }
     let mid = Math.floor( length / 2 ),
     left = array.slice( 0, mid ),
-    right = array.slice( mid, length );
+    right = array.slice( mid);
     return merge(mergeSort( left ), mergeSort( right ));
 }
 

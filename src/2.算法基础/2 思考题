@@ -1,0 +1,166 @@
+2.1
+function mergeSort(array){
+    let length = array.length;
+    if( length < k ) {
+        return  inserSort(array);
+    }
+    let mid = Math.floor( length / 2 ),
+    left = array.slice( 0, mid ),
+    right = array.slice( mid, length );
+    return merge(mergeSort( left ), mergeSort( right ));
+}
+  a:
+  插入排序最坏情况O(n^2)
+  n^2 * n/k  => nk
+
+  b:
+  将数组分为 n/k 个字表 
+  T(n) = c            n = k;
+  T(n) = T(n/2) + cn     n > k;
+                   T(n)                         cn  ---
+            T(n/2)      T(n/2)                  cn   |
+        T(n/4) T(n/4) T(n/4) T(n/4)             cn   |  lg(n/k)
+             ..............                  ......  |
+    T(k)  .....               T(k)              cn  ---
+
+    cn lg (n/k)  => O(nlg(n/k))
+
+  c:
+  nk + nlg(n/k) = nlgn
+    k + lg(n/k) = lgn
+             k  = lgn
+
+  d:
+  插入比归并快的最大数组长度
+
+2.2
+  a:
+  A' 中所有元素都来自 A
+
+  b:
+  function bubbleSort(array){
+    for(let i = 0; i< array.length; i++){
+        for(let j = array.length -1; j > i ; j--){
+            if(array[j] < array[j-1]){
+                let tmp = array[j];
+                array[j] = array[j-1];
+                array[j-1] = tmp;
+            }
+        }
+    }
+  }
+
+  内循环： 每次循环开始 j到数组结束中 j位是最小的
+  初始：i = 0 数组第一位; j = 数组最后一位；此时 [j - length-1]只有一位 满足
+  循环：每次循环开始 将[j - length-1]中最小与j-1位比较 如果比j-1位小就左移 j = j-1 下次循环开始时满足 [j-1 - length-1]最小在j-1；
+        [j - length-1]还是原来数组元素，添加j-1位仍然还是
+  结束：j=0 在之前循环中已经将最小移至0位（i=1时）,此时 最小位满足循环条件 且所有元素来自原来数组
+
+  c:
+  外循环： 每次循环开始 [0 - i]都是已经排序的元素
+  初始：i = 0 数组第一位; 满足排序
+  循环：每次循环开始 通过内循环将[i - length-1]最小位移至 i; 此时[0-i-1]已经有第0到第i-1小的元素 第i位放置第i小
+  结束：j=length-1 在之前循环中已经将第0到第length-2小元素排好，剩下的为最大，在length -1 位
+
+  d:
+  O(n^2)  最差位倒序的数组 每次都会进行比较并交换 比插入排序差
+
+2.3
+  a: O(n)
+  function Horner(a,x){
+    let y = 0;
+    for(let i = a.length -1; i >= 0; i--){
+        y = a[i] + x * y;
+    }
+  }
+
+  b:
+  function pureHorner(a,x){
+    let y = 0;
+    for(let i = 0; i < a.length; i++){
+        y +=  a[i] *  (x ^ i);
+    }
+  }
+  计算x^i 是多步运算 O(n^2) n^2/2 比霍纳慢
+
+  c:
+  参照 2 思考题 第三题.jpg
+
+
+2.4:
+  a:
+  [2,3,8,6,1] {2,1} {3,1} {8,6} {8,1} {6,1}
+
+  b:
+  倒叙数组
+  1 + 2 + 3 + .... + n-1 = n(n-1)/2
+
+  c:
+  function insertSort(array){
+    let i,j;
+    for(i = 1; i< array.length; i++){
+        let current = array[i]; // {1}
+        for(j = i; j > 0 && array[j-1] > current;j--){ // 将j位置抽出来 从j-1开始比较
+            array[j] = array[j - 1]; // {2}  将j-1 后移至 j
+        }
+        array[j] = current; // {3}
+    }
+  }
+  插入排序是每次将第i位与之前的进行比较 小则将之前的后移
+  逆序对越多 进行的后移操作就越多
+  所以为正相关
+
+  d:
+  
+// 归并扩展 确定数组中的逆序对
+function InverseOrderPairs(array){
+    let length = array.length;
+    if( length === 1 ) {
+        return {result:0,array}
+    }
+    let mid = Math.floor( length / 2 ),
+    left = array.slice( 0, mid ),
+    right = array.slice( mid );
+    let result = 0,tmp,leftTmp,rightTmp;
+
+    leftTmp = InverseOrderPairs(left);
+    
+    rightTmp = InverseOrderPairs(right);
+
+    tmp = countPairs(leftTmp.array,rightTmp.array);
+
+    result += leftTmp.result;
+    result += rightTmp.result;
+    result += tmp.count;
+    array = [...tmp.result]
+    return {result,array}
+}
+
+function countPairs(left,right){
+    let result=[],il = 0,ir = 0,count = 0;
+
+    while(il < left.length && ir < right.length) {
+        if(left[il] < right[ir]) {
+            result.push(left[il++]);
+        } else{
+            result.push(right[ir++]);
+            count += (left.length - il)
+        }
+    }
+
+    while (il < left.length){
+        result.push(left[il++]);
+    }
+
+    while (ir < right.length){
+        result.push(right[ir++]);
+    }
+
+    for(let i = 0; i<result.length;i++){
+        i < left.length ?
+        left[i] = result[i]:
+        right[i - left.length] = result[i];
+    }
+
+    return {count,result};
+}
