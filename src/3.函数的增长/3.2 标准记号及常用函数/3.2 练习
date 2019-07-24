@@ -1,0 +1,12 @@
+3.2-1
+  f(n) 单调递增 g(n)单调递增
+  对于 a<b  f(a) <= f(b)  g(a) <= g(b)
+  f(a) + g(a) <= f(b) + g(b) 所以f(n) + g(n)也是单调递增
+  f(g(a)) = f(a')   f(g(b)) = f(b')  g(n)递增所以 a' <= b' f(n)递增所以 f(a') <= f(b') 可得 f(g(n))单调递增
+
+3.2-2
+  a = b^(log b(a))
+  a^ logbc = a^ (logac / logab) =(a^logac)^(1/logab) = c^logba
+
+3.2-3
+  ...........
