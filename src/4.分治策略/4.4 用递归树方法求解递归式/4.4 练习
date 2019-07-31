@@ -1,0 +1,99 @@
+4.4-1
+ 递归树见4.4-1.jpg => O(n^lg3)
+ 带入证明：
+T(n) = 3T(n/2) + n
+     = 3(c(n/2)^lg3) + n
+     = cn^lg3 + n <= cn^lg3
+减去低项式：
+T(n) = 3(c(n/2)^lg3 - 2(n/2)) + n
+     = cn^lg3 -2n <= cn^lg3
+     满足
+
+4.4-2
+4.4-2.jpg => O(n^2) // 4.4-2 第一种证明错误 等比项数弄错了
+ T(n) = T(n/2) + n^2
+      = c(n/2)^2 + n^2
+      = (c/4 + 1)n^2 <cn^2
+      c>= 4/3 满足
+
+4.4-3
+4.4-3 => O(n^2)
+证 T(n) = 4T(n/2 +2) +n
+        = 4( c(n/2 +2)^2 ) + n
+        = cn^2 + 8cn + 16c + n <= cn^2
+                             c <= n / (8n + 16) <= 1/8
+       c 足够小时满足
+
+4.4-4
+ T(n) = T(n-1) + 1
+  n      1
+  n-1    1
+  ...    ...
+  1      1
+
+ T(n) = cn
+  
+  T(n) = c(n-1) + 1
+       = cn -c + 1 <= cn
+                 c >= 1
+
+4.4-5
+ 拉闸
+
+4.4-6
+  T(n) = T(n/3) + T(2n/3) + cn
+     
+           n                cn
+    n/3     2n/3            cn
+n/9 2n/9  2n/9 4n/9         cn
+ ......
+ 1 .. 1...     1 (不完全树 如6 => 2  4=>1 2) 
+
+所以 T(n) <= cn log3 n < cn lgn
+
+4.4-7
+  T(n) = 4T(n/2) + cn
+      n                  cn
+      n/2 * 4            2cn
+      n/4 * 16           4cn
+      ...               ...
+      1 * 4^lgn         O(n^2)
+
+  T(n) => O(n^2) - 2n
+  T(n) = 4(c (n/2)^2 -2(n/2) ) + cn
+       = cn^2 -4n + cn <= cn^2
+       c<=4 n>0 满足
+
+4.4-8
+T(n) = T(n -a) + T(a) + cn
+     n             cn
+     n-a   a       cn
+     n-2a  a       c(n-a)
+     n-3a  a       c(n-2a)
+     ...           ....
+     1     a       O(1)
+
+     T(n) = cn + c( n + n-a + n-2a + n-3a +.... + n- ((n-1)/a-1)a  ) + O(1)
+          = cn + c(   ((n-1)/a -1)  * (n+  (n-1-a)/a)  )/2
+          = cn + c( (n-1)/a  * (an+n-1-a)/a)/2 <= c( n/a * (an+n)/a )/2
+                                                = O(n^2)
+  证：T(n) = cn^2 - cn
+           = c(n-a)^2 -c(n-a) + ca^2 - ca +cn
+           = cn^2 - 2can + ca^2 -cn + ca + ca^2 -ca + cn
+           = cn^2 - 2can + 2ca^2 <= cn^2 - cn
+           n >= 2a^2/(2a-1) a>=1 c>0
+
+4.4-9
+  T(n) = T(an) + T((1-a)n) + cn
+             n                        cn
+        an    (1-a)n                  cn
+  a^2n (1-a)an  a(1-a)n (1-a)^2 n     cn
+   .....                             ...
+   不完全树    1/a => 1  a/a -1      
+
+   T(n) <= cn log1/a n <= cn lgn  n> 1/2
+
+   T(n) = danlg(an) + c(1−a)nlg((1−a)n) + cn
+        = danlgn + d(1−a)nlgn + danlga + d(1−a)nlg(1−a) + cn
+        <= dnlgn + (d(alga + (1−a)lg(1−a)) + c)n
+        <= dnlgn

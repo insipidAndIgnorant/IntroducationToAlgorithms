@@ -1,0 +1,90 @@
+4.3-1
+T(n) = T(n-1) + n is O(n^2)
+T(n) = c(n-1)^2 + n
+     = cn^2 + c - 2cn + n
+证明: 存在c 使T(n) <= cn^2
+cn^2 + c - 2cn + n <= cn^2
+令c = 1
+n^2 -n +1 <= n^2
+n>= 1时满足
+
+4.3-2
+T(n) = T[n/2] + 1 is O(lgn)
+
+T(n) = T[n/2] + 1
+     = clg(n/2) + 1
+     clg(n/2) + 1 <= clgn
+                1 <= clg( n / [n/2]   )  // 取[n/2]下   n/ [n/2]  >= 2
+                1 <= c
+当 c>=1 满足
+
+4.3-3
+T(n) = 2( c(n/2)lg(n/2) ) + n
+     = cnlgn - cnlg2 + n
+     = cnlgn - cn + n >= cnlgn
+     当n > 1 c <= 1时满足
+
+4.3-4
+ 可证 T(n) <= cnlgn + n
+ t(n) = 2(c (n/2)lg(n/2) +(n/2))
+      = cnlgn - cn +2n <= cnlgn +n
+                n -cn  <= 0
+                c>=1 n>=0 满足 T(1) = 1 = lg1 + 1 = 1 <= 1
+
+4.3-5
+ T(n) = T(n/2) + T(n/2) +O(n)
+      = c(n/2 lg(n/2)) + c(n/2 lg(n/2)) + dn
+      = cnlgn -cn + dn <= cnlgn
+      c > d  n > 0   //  T(1)
+
+4.3-6
+ T(n) = 2T(n/2 + 17) + n
+      = 2(c (n/2 + 17 )lg(n/2 + 17 ) ) + n
+      = c(n+34)lg( (n+34) /2) + n
+      = c(n+34)lg(n+34) - c(n+34) + n <= cnlgn
+      // ..........
+
+4.3-7
+ T(n) = 4T(n/3) + n
+      = 4(c (n/3)^(log3 4) ) + n
+      = cn^(log 3 4) + n <= cn^(log3 4)
+      不满足
+ 
+ T(n) = 4(c (n/3)^(log3 4) - n) + n
+      = cn^(log3 4) - 4n + n <= cn^(log3 4)
+                cn^(log3 4) - 3n <= cn^(log3 4)
+                n > 0
+
+4.3-8
+ T(n) = 4T(n/2) + n^2
+      = 4(c (n/2)^2 ) + n^2
+      = (c+1)n^2 <= cn^2
+
+ T(n) = 4T(n/2) + n^2
+      = 4(c (n/2)^2 - n/2) + n^2
+      = (c+1)n^2 -2n <= cn^2 - n
+            n^2 - n <= 0
+
+4.3-9
+ T(n) = 3T(√n) + lg n
+
+ 令 m = lgn
+
+ T(2^m) = 3T(2^(m/2)) + m
+ 
+ 令S(m) = T(2^m)
+
+ S(m) = 3S(m/2) + m
+ 
+ 证明 S(m) <= cm^lg3 + dm
+ S(m) = 3(c(m/2)^lg3 + d(m/2)) +m  // 取括号内部 和 外部倍数组成 log2 3 消掉分母
+      = cm^lg3 + 3dm/2 + m<= cm^lg3 + dm
+                  3d/2 +1 <= d
+                  d <= -2
+
+ S(m) >= cm^lg3 + dm
+
+ S(m) = 3(c(m/2)^lg3 + d(m/2)) +m  // 取括号内部 和 外部倍数组成 log2 3 消掉分母
+      = cm^lg3 + 3dm/2 + m >= cm^lg3 + dm
+                  3d/2 +1 >= d
+                  d >= -2
