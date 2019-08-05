@@ -1,0 +1,17 @@
+5.1-1
+ 第四行 如果当前应聘者成绩大于之前最优者 则聘用
+ 假设每次都能决定哪一位应聘者最佳 则证明了解当前所有应聘者情况 则可作出比较 进行排序
+
+5.1-2
+ a + (b-a)次 random(0,1)  O(b-a)
+
+5.1-3
+function fixRandom (p) {
+    while (true) {
+        let preResult = biased-random(0,1);
+        let apdResult = biased-random(0,1);
+        if( preResult !== apdResult ) {
+            return preResult;
+        }
+    }
+}
