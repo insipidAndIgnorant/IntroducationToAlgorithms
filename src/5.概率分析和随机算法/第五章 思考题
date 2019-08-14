@@ -1,0 +1,64 @@
+5.1
+  1：
+  设 Xi 为 计数器在i状态每次增加的期望 = (Ni+ -Ni)*1/(Ni+ -Ni) = 1
+  可推出每次增加操作 计数器所代表的数的期望增长是1
+  n次增加后 所表示数的期望是 i + n
+
+  2：
+  5.1 2.jpg
+  // 不能理解为和为99n
+  // 假设1次increment 计数器结果为0或1 所表示数方差皆为833.25  总期望为 1/100 * 833.25 + 99/100 *833.25 = 833.25 不等于99n
+
+5.2
+  a:
+  function randomSearch(arr, search) {
+    let length = arr.length
+    let cache = {
+        num: 0
+    }
+    while (cache.num != length) {
+        let i = Math.floor(Math.random()*length)
+        if (arr[i] == search) {
+            return i
+        } else {
+            if (!cache[i]) {
+                cache.num += 1;
+                cache[i] = true;
+            }
+        }
+    }
+  }
+
+  b:
+  每一次挑选到正确下标概率为1/n 期望为 n
+
+  c:
+  每一次挑选到正确下标概率为k/n 期望为 n/k
+  
+  d:
+  类似箱子与球 集齐全部的期望次数为n lnn
+
+  e:
+  设Ei 为正确下标为i期望次数  = i* 1/n
+  E = ∑i=1 to n i* 1/n = (n+1)/2
+  最坏情况为最后一位 为n
+
+  f:
+  设Ei 为最小正确下标为i期望次数  = i * (n-k / n-1)^(i-1) * k/n 
+  E = ∑i=1 to n-k+1  Ei =  解不出来。。。
+  最坏情况为正确的都在最后 为n-k+1次
+
+  g:
+  n次 n次
+
+  h:
+  k=0:
+  n次 n
+  k=1:
+  n次 n
+  k=k:
+  n-k+1次 n-k+1
+
+  i:
+  deterministic-search  对随机输入随机排序无影响 较少了排序的时间
+
