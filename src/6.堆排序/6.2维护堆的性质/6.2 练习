@@ -1,0 +1,43 @@
+6.2-1
+  3与10交换 3与9交换
+
+6.2-2
+  function minHeapify (arr, i) {
+   let left = i*2+1, right = i*2 +2,min = i;
+
+   if (arr[i] > arr[left] && left <arr.length) {
+       min = left
+   }
+   if (arr[min] > arr[right] && right <arr.length) {
+       min = right
+   }
+
+   if (min !== i) {
+       [arr[i], arr[min]] = [arr[min], arr[i]]
+       minHeapify(arr, min) 
+   }
+  }
+  相同
+
+6.2-3
+  不发生改变
+
+6.2-4
+  i > A.heap-size/2, 则i为叶子节点 不发生改变
+
+6.2-5
+  function maxHeapify_NonRecursive(A,i) {
+    while (true) {
+        let l = i*2 +1;
+        let r = i*2 + 2;
+        let largest = i;
+        if (l <= heapSize && A[l] > A[largest]) largest = l;
+        if (r <= heapSize && A[r] > A[largest]) largest = r;
+        if (largest == i) break;
+        swap(A[i],A[largest]);
+        i = largest;
+    }
+  }
+
+6.2-6
+  最坏情况为根节点到叶节点之间一直维护，堆高度为lgn，则需维护lgn次
