@@ -1,0 +1,106 @@
+7.1
+  a:
+  A= i[13,19,9,5,12,8,7,4,11,2,6,21]j
+  A= [ i13,19,9,5,12,8,7,4,11,2, j6,21]
+  A= [ i6,19,9,5,12,8,7,4,11,2, j13,21]
+  A= [6, i19,9,5,12,8,7,4,11, j2,13,21]
+  A= [6, i2,9,5,12,8,7,4,11, j19,13,21]
+  A= [6,2,9,5,12,8,7,4, j11, i19,13,21]
+  b:
+  因为repeat是do while 所以 i>=p j<=r
+  p <= i <= j <= r
+  do j-- while A[j] <= x 所以 j>= p
+  do i++ while A[i] >= x
+  第一次循环后 i=1 如果 i>= j 则返回 ij在数组内
+                  如果 i< j A[j] = x 则在do while中 i <= 此时j 则 i<= r
+  所以 ij在pr内
+
+  c:由b知 p <= j, j<= r;
+    hoare结束条件为i>= j
+    在第一次循环时如果结束 则i=1, j<=1< r
+    如果第一次未结束， 第二次循环开始时do j--  则j < r
+
+    所以 p <= j < r
+
+  d:
+  p~i-1存放小于x  j+1~r存放大于等于x j<=i
+  若i=j 则A[i] =A[j] =x  A[p~j] 存放小于x + x   A[j+1 ~ r] >= x 成立
+  若i<j 则A[j]<=x A[i]>=x 若i-j > 1 则存在一段区域内的值 <x且>=x 显然不存在，则 0< i-j <=1
+        由此得 A[p~j] = A[p~i-1] <x  A[j+1~r]>=x
+
+  e:
+  HOARE-SORT (A, p, r):
+    if p < r
+      m = HOARE-PARTITION(A, p, r)
+      HOARE-SORT(A, p, m)
+      HOARE-SORT(A, m+1, r)
+    end
+
+
+7.2
+  a: O(n^2)
+  b: 
+    修改三路快排分区函数
+  c: 
+    RANDOMIZED-PARTITION'(A, p, r)
+      i = RANDOM(p, r)
+      exchange A[i] with A[r]
+      return PARTITION'(A, p, r)
+    
+    RANDOMIZED-QUICKSORT'(A, p, r)
+      if p < r
+        q, t = RANDOMIZED-PARTITION'(A, p, r)
+        RANDOMIZED-QUICKSORT'(A, p, q-1)
+        RANDOMIZED-QUICKSORT'(A, t+1, r)
+
+  d:
+    ????
+
+7.3
+  a: 1/n
+  b:首先PARTITION过程的运行时间为O(n)，然后当主元为第i小的元素时，问题被分为规模分别为q−1和n−qq−1和n−q的两个子问题，
+  运行时间分别为T(q−1)和T(n−1)T(q−1)和T(n−1)，所以 
+  E[T(n)]= E[ ∑q=1 to n Xq(T(q−1) + T(n−q) + O(n)) ]
+  c:
+     ∑q=1 to n  Xq( T(q-1) + T (n-q) + O(n))
+   = 1/n ∑q=1 to n T(q-1) +  1/n ∑q=1 to n T(n-q) +  1/n ∑q=1 to n O(n)
+   = 1/n ∑q=0 to n-1 T(q) +  1/n ∑q=0 to n-1 T(q) +  O(n)
+   = 2/n ∑q=0 to n-1 T(q) + O(n)
+   = 2/n T(0) + 2/n T(1) + 2/n ∑q=2 to n-1 T(q) + O(n)
+   = 2/n ∑q=2 to n-1 T(q) + O(n)
+  d: 7.3-d.jpg
+  e: E(T(n)) = 2/n ∑q=2 to n−1 E[T(q)] + O(n)
+  <= 2/n ∑q=2 to n−1 aq⋅lgq + O(n)
+  <= 2a/n (n^2/2 lgn  − n^2/8) + O(n)
+  <= anlgn − an/4 + Θ(n)
+  当an/4 - O(n) > 0 
+  <= anlgn
+
+7.4
+  a: 算法前面和快速排序是一样的，调用PARTITION后，递归调用了左边的子数组；
+  然后通过将p=q+1，并经过循环，对右边的子数组进行了快速排序操作，与递归调用快速排序是一样的，所以能正确的对数组A进行排序。
+  b:当数组本身就是按升序排列的，那么每次PARTITION操作后，左边的数组大小都只比原先的小一，所以一共会递归调用n次，即栈深度为Θ(n)
+  c: TAIL-RECURSIVE-QUICKSORT(A, p, r)
+        while p < r
+        q = PARTITION(A, p, r)
+        if q <=  (r+p)/2
+          TAIL-RECUISIVE-QUICKSORT(A, p, q-1)
+          p = q + 1
+        else
+          TAIL-RECURSIVE-QUICKSORT(A, q + 1, r)
+          r = q
+
+7.5
+  a: Pi = (i-1)(n-i)/C(n,3)
+  b: Pn/2 / 1/n   =  6(n/2 - 1)(n - n/2) / (n-1)(n-2)
+                  =  3n(n-2)/ 2(n-1)(n-2)
+                  n -> INF => 3/2
+     增加1/2
+  c:???
+
+  d: 快速排序 T(n) = 两子数组处理 + 分区函数
+     三元取中使其不可能取到极端情况 总时间为 lgn O(PARTITION)
+
+7.6:
+  不会 
+
