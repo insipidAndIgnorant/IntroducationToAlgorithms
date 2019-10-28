@@ -1,0 +1,34 @@
+10.4-1
+                        18
+          12                           10
+    7            4              2               21
+            5
+
+10.4-2
+  先序遍历 中序遍历 后序遍历 深度优先搜索 广度优先搜素
+
+10.4-3
+  # 并不理解 ，个人认为会漏掉部分节点
+  ## 并不会漏掉 弹出T时会在循环中进去if第一部分再次压入左子树
+  TREE-PRINT(T：Tree, S: Stack)
+   while T != NIL or S != NIL
+       if T != NIL
+           PUSH( S, T )
+           VISIT( T )
+           T = T->left
+       else
+           T = POP( S )
+           T = T->right
+  
+
+10.4-4
+  当不关心parent时 可看作一棵极度不均衡的二叉树
+
+10.4-5
+  参考的方法为在节点上增加属性（这不是修改了树吗）然后使用广度优先搜索
+
+10.4-6
+ // https://blog.csdn.net/u013762431/article/details/85321848
+ 解：两个指针将是left-child和next。布尔值应该被称为last-sibling。
+ 识别孩子是从left-child开始，然后通过next，直到到达最后一个孩子。
+ 识别父结点应该通过next，直到到达last-sibling，然后再次通过next。

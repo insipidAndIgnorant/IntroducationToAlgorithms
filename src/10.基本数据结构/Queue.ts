@@ -1,4 +1,4 @@
-export default class Stack {
+export default class Queue {
     private _queue = [];
     private _len = 0;
     constructor(n: number) {
@@ -21,6 +21,10 @@ export default class Stack {
             throw new Error('queue underflow')
         }
         this._queue.shift();
+    }
+
+    get size () {
+        return this._len
     }
 }
 

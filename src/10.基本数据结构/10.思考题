@@ -1,0 +1,47 @@
+10.1
+                未排序                  已排序                  未排序双链表                    排序双链表
+search             n                     n                          n                              n
+insert             1                     n                          1                              n
+delete             n                     n                          1                              1
+successor          n                     1                          n                              1
+predecessor        n                     n                          n                              1
+minimum            n                     1                          n                              1
+maximum            n                     n                          n                              1
+
+10.2
+  a:
+  make-heap: 1
+  insert: n
+  minimum: 1
+  extract-min 1
+  union: n
+
+  b:
+  make-heap: 1
+  insert: 1
+  minimum: n
+  extract-min n
+  union: n
+
+  c:
+  make-heap: 1
+  insert: 1
+  minimum: n
+  extract-min n
+  union: n
+
+
+10.3
+  a: 两种方法都正确，所以返回一样结果
+    已假设RANDOM返回一样结果，
+    SEARCH 在循环中经过t次返回，则经过t次跳跃+步进，每次跳跃以步进后为起点
+    SEARCH'先进行循环，再步进，每次跳跃以上次跳跃后为起点，那么SEARCH肯定比SEARCH'更快接近结果
+  
+  b:t为跳跃次数，剩余距离为E(X),步进为1，所以为O(t+E(X))
+  c:
+  d:
+  e:利用c，d： = (1 - r/n)^t = (1/n^t) * n^(t+1)/(t+1) = n/(t+1)
+  f:利用e可得
+  g:证明：因为SEARCH的运行时间必然小于等于SEARCH’，所以对t+n/t取最小值，得t^1/2
+  h:SEARCH只有在随机位置值大于前值才会跳跃，当全为相同值时，不会跳跃
+  

@@ -1,0 +1,39 @@
+10.2-1
+  不能
+
+10.2-2
+  记录头尾指针即可
+
+10.2-3
+  同记录头尾指针
+
+10.2-4
+  想不到 实在不行try catch ????
+
+10.2-5
+  用一个变量记录前指针?? 最坏情况O(n)
+  
+
+10.2-6
+  Map Set 了啦
+
+10.2-7
+  var reverseList = function(head) {
+    if (head === null) {
+        return head
+    }
+    let first = head, target = head.next;
+    while (target) {
+        first.next = target.next;
+        target.next = head;
+        head = target;
+        target =first.next;
+       
+    }
+
+    return head
+  };
+  // 与letcode上相同
+
+  10.2-8
+    
