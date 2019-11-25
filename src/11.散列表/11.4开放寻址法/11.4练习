@@ -1,0 +1,40 @@
+11.4-1
+ 10 22 31 4 15 28 17 88 59
+
+ 线性：h(k) = k  =>  (k + i) mod m
+ 二次：h(k) = k, c1=1, c2=3  =>  (k + i + 3i^2) mod m
+ 双重：h1(k) = k,  h2(k)=1+(k mod(m-1))  =>  (k + i(1+(k mod(m-1))) mod m
+
+11.4-2
+  HASH-DELETE(T,k):
+    X = HASH-SEARCH(k)
+    T[x] = DELETED
+
+  HASH-INSERT(T,k):
+    while i < m
+      j = h(k, i)
+      if T[j] == NIL || DELETED
+         T[j] = k
+         RETURN
+      ELSE
+         i++
+
+11.4-3
+  a = 3/4
+  一次不成功 1 / (1-0.75) = 4
+  一次成功  1/0.75 ln 1/(1-0.75) = 4/3 ln 4
+
+  a = 7/8
+  一次不成功 1 / (1- 7/8) = 8
+  一次成功  8/7 ln 1/ 1/7 = 8/7 ln 8
+
+11.4-4
+  
+
+
+11.4-5
+  1/(1-a) = 2 * 1/a ln (1/(1-a))
+
+  a 约为 0.717
+
+    

@@ -1,4 +1,4 @@
-class Node {
+export class Node {
     element: any;
     next: Node | null;
     prev: Node | null;
@@ -10,7 +10,7 @@ class Node {
     }
 }
 
-export default class LinkedList {
+export class LinkedList {
     length: number;
     head: Node | null;
     constructor() {

@@ -1,0 +1,36 @@
+11.2-1
+  任意俩冲突的概率Eij为 m / m*m = 1/m
+  期望冲突数 = E[ ∑i 1~n ∑j i+1~n * Eij]
+            = 1/m * ∑i 1~n  n-i
+            = 1/m * n(n-1)/2
+            = n(n-1)/2m
+
+11.2-2
+  5     insert to 5
+  28    insert to 1
+  19                insert to 1
+  15    insert to 6
+  20    insert to 2
+  33                insert to 6
+  12    insert to 3
+  17    insert to 8
+  10                            insert to 1
+
+
+11.2-3
+  search: 只需要找到第一个大于key就可以终止，时间减少
+  insert: 需要维护排序性质，时间增加
+  delete: 先查找再删除，查找时间减少
+
+11.2-4
+
+11.2-5
+  看不懂题目的意思
+
+11.2-6
+  1.在1~n中产生随机数x，循环加每槽长度直到大于x,在该槽中寻找值 m + L > L(1+ 1/a) 不满足
+
+  1.设每槽长度都为L，在1~mL中产生随机数x, x不为nil的概率为 n/mL,
+    产生一次成功的随机期望次数为 Lm/n = L/a
+  2.若在最长链表，则需要O(L)时间
+  3.总期望为O(L+L/a) = O(L(1+ 1/a))

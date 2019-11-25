@@ -1,0 +1,85 @@
+11.1
+  a:
+  由定理11.7可知：均匀散列时，向一个装载因子为a=n/m的开放寻址散列表中插入一个元素至多需要1/(1-a)次探查
+  设X为期望探寻次数， P(X>i) <= a^(i-1) <= 0.5^(i-1)
+  使i = k+1, P(X>k) = P(x >= k+1) <= 0.5^(k+1)-1 =  (1/2)^k = 2^-k
+
+  b:
+  由a可知：将2lgn带入a中
+  Pr(xi>2lgn) = 2^(-2lgn) = (2^lgn)^-2 = n^-2 = 1/n^2
+
+  c:
+  由b可知 第i次插入探查次数大于2lgn的概率为1/n^2
+  Pr(X>2lgn) = ∑i= 1 to n {1/n^2} = 1/n
+
+  d:
+  // 参考mit答案
+  由a可知第i次插入多于k次探查的概率为2^-k;
+  最长探查序列的期望长度E[x]= ∑k= 1 to n {k * 2^-k}
+                          =  ∑k= 1 to 2lgn {k * 2^-k} + ∑k= 2lgn+1 to n {k * 2^-k}
+                          <= ∑k= 1 to 2lgn {2lgn * 2^-k} + ∑k= 2lgn+1 to n {n * 2^-k}
+                          = 2lgn * ∑k= 1 to 2lgn {2^-k} + n * ∑k= 2lgn+1 to n { 2^-k}
+                          // 由c知 Pr{X>2lgn} = 1/n;   Pr{X<2lgn} = (n^2-1)/n^2,可知 Pr(X<=2lgn) <= 1; 
+                          <= 2lgn * 1 + n * 1/n
+                          = O(lgn)
+  
+
+11.2
+  a:
+  类似箱子投球，正好k个球落在某一特定箱子概率Qk = (1/n)^k * (1-1/n)^(n-k) * C(n,k)
+  // P(k个投进箱子) * P(剩余不在箱子) * P(n个选k个进箱子（投进顺序）)
+
+  b:
+  Pk为最多关键字槽长度为k的概率 设i为最长槽所在序号
+  Pk = ∑i= 1 to n Qk = nQk (仅当K为最长时)
+  所以 Pk <= nQk
+
+  // by mit answer 格式更好看一点思想相同
+  Pk = Pr{M=k}
+     = Pr{max(i=1~n Xi) = k} // n次插入后最大槽的长度等于k  Xi为槽i期望长度
+     = Pr{存在i使 Xi=k 并且 xi<=k当i=1~n}
+     <= Pr{存在i使 Xi=k}
+     = ∑i= 1 to n Qk
+     = nQk
+    
+  c:
+  Qk = (1/n)^k * (1-1/n)^(n-k) * C(n,k)
+     = (1/n)^k * (1-1/n)^(n-k) * n!/k!(n-k)!
+     < 1/n^k *  n!/k!(n-k)! = n!/ (n^k * k!(n-k)!)      // (1=1/n)^(n-k) < 1
+     < 1/k!             //  n!/(n-k)! < n^k
+     < e^k / k^k        //  k! > (k/e)^k    // 斯特林
+
+  d:
+  Qk0 < 1/n^3   (k0 = clgn/lglgn)
+  证：//------by mit------
+  Qk <= e^k/k^k < 1/n^3
+        k0^k0 / e^k0 > n^3
+        k0(lgk0 - lge) > 3lgn
+        clgn/lglgn (lgc + lglgn -lglglgn - lge)
+        c/lglgn (lgc + lglgn -lglglgn - lge)< 3
+        c (1+ (lgc - lge)/lglgn - lglglgn/lglgn)
+
+        令x = (1+ (lgc - lge)/lglgn - lglglgn/lglgn)
+        存在c>1 且 cx<3即成立
+        lim n to INF x=1 成立
+  // ---------------------
+  k > k0 向极值靠近,带入Pk<nQk
+
+  e:
+  // by mit
+  E[M] = ∑k= 0 to n { k* Pr{M=k} }
+       = ∑k= 0 to ko { k* Pr{M=k} } + ∑k= k0+1 to n { k* Pr{M=k} }
+       <= ∑k= 0 to ko { k0* Pr{M=k} } + ∑k= k0+1 to n { n* Pr{M=k} } // 分为两段计算近似
+       <= k0 * ∑k= 0 to ko Pr{M=k} + n * ∑k= k0+1 to n Pr{M=k}
+       = k0 * Pr{M<=ko} + n * Pr{M>k0}
+
+  Pr{M>ko} = ∑k= k0+1 to n Pr{M>k0}
+           = ∑k= k0+1 to n Pk
+           < ∑k= k0+1 to n 1/n^2  // by part d
+           < n * 1/n^2
+           = 1/n
+  Pr{M<k0} <= 1 // 随机事件概率在0~1？？？？
+
+  E[M] <= k0 * 1 + n * (1/n)
+       = O(k0)
+       = O(lgn/lglglgn)

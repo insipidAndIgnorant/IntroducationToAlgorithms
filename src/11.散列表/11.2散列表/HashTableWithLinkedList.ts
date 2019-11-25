@@ -1,4 +1,4 @@
-import LinkedList from '../../10.基本数据结构/10.2链表/LinkedList'
+import { LinkedList } from '../../10.基本数据结构/10.2链表/LinkedList'
 
 class ValuePair {
     key: string;
