@@ -1,0 +1,65 @@
+12.2.1
+  c: 240 < 911, 912 > 911
+
+12.2.2
+  TREE-MINIMUM(x)
+    if(!x.left)
+      return x
+    TREE-MINIMUM(x.left)
+
+  TREE-MAXIMUM(x)
+    if(!x.right)
+      return x
+    TREE-MAXIMUM(x.right)
+
+12.2.3
+  TREE-PREDECESSOR(x)
+  if x.left != NIL
+    return TREE-MAXiMUM(x.left)
+  
+  y = x.parent
+  while y != NIL && x == y.left
+    x = y
+    y = y.parent
+  return y
+
+12.2.4
+                   10
+        4                       15
+    2       6
+  1   3   5    7 
+
+  查找值7  A=[1,2,3,5] B=[10,4,6,7] C=[15]
+  5>4
+
+
+12.2.5
+  该点有两个孩子，则前驱必然在左子树，后继必然在右子树
+  后继为该点比他大的最小值，若右左则存在比它小且大于该点的值
+  前驱同理
+
+12.2.6
+  设y为x的后继
+  若x是其后继y的左孩子，那么key[x]≤key[y],所以y是x的最低祖先，y的左孩子为x的祖先也就是x本身。
+  若x是其后继y的右孩子，那么key[x]≥key[y],这明显与后继定义矛盾，y是x的前驱。所以x不可能是后继y的右子树。
+  若x是y的左孩子y1的右孩子，那么有key[y1]≤key[x],后继y的左孩子y1是x的祖先，同时y是x的最低祖先
+  若x是y的左子孙（不包括子节点）y2的右孩子，y2父节点为y3,那么有key[y2]<=key[x]≤key[y3]<=key[y],不满足定义
+
+
+12.2.7
+  // by mit
+  1: 需要O(n)时间来完成n次调用
+  2: 树的每一边最多经过两次（一次向下，一次向上）
+     考虑节点u和任意孩子节点v, 从根节点开始，向下时我们必须经过(u->v)，在向上遍历之前，唯一一次树向下遍历是在TREE-MINIMUM,唯一一次向上是
+     在TREE-SUCCESSOR时没有右子树
+
+     当v是u的左孩子时：
+       在打印u之前，我们必须打印所有左子树，
+       当左子树打印完后，u必须打印后继，TREE-SUCCESSOR从v子树中最大(没有右子树)向上到u经过一条向上的路径，非常明显包括(v->u).
+       当左子树打印完后，(u,v)将不会被经过
+     当v是u的右孩子时：
+        在u打印之后，TREE-SUCCESSOR被调用，以获得u右子树最小值，那么(u->v)将必被经过
+        当u右子树被打印完之后，TREE-SUCCESSOR被调用在右子树最小值(没有右子树)，TREE-SUCCESSOR经过一条路径向上到达u之后的节点，
+        因为u已经被打印，(v,u)必被经过， 当右子树被打印完，(u,v)将不会被再次经过
+
+12.2.8

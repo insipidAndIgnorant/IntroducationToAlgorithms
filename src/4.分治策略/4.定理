@@ -1,0 +1,30 @@
+4.1 主定理
+  令a>=1, b>1是常数，f(n)是一个函数，T(n)是定义在非负整数上的递归式
+        T(n) = aT(n/b) + f(n)
+
+  1.若对某个常数x>0,有f(n) = O( n^(logb(a-x)) ),则T(n) = Om( n^(logb(a)) )
+  2.若f(n) = Om( n^(logb(a)) ),则T(n) = Om( n^(logb(a)) * lgn )
+  3.若对某个常数x>0, 有f(n) = Ω( n^(logb(a+x)) )，且对某个常数c<1和所有足够大的n有af(n/b) <= cf(n),则T(n) = Om(f(n))
+
+4.2
+  令a>=1, b>1是常数，f(n)是定义在b的幂上非负函数.T(n)是定义在b的幂上的递归式
+        T(n) = Om(1) // n=1;  T(n) = aT(n/b) + f(n) //n=b^i
+    其中i是正整数。那么
+        T(n) = Om( n^(logb(a)) ) + ∑j= 0~logb(n-1) {a^j * fn(n/(b^j))}
+
+
+4.3
+  令a>=1, b>1是常数，f(n)是定义在b的幂上非负函数.g(n)是定义在b的幂上的函数
+        g(n) = ∑j= 0~logb(n-1) {a^j * f(n/(b^j))}
+    对于b的幂，g(n)有如下渐进界
+      1.若对某个常数x>0,有f(n) = O( n^(logb(a-x)) ),则g(n) = O( n^(logb(a)) )
+      2.若f(n) = Om( n^(logb(a)) ),则g(n) = Om( n^(logb(a)) * lgn )
+      3.若对某个常数c<1和所有足够大的n有af(n/b) <= cf(n),则g(n) = Om(f(n))
+
+4.4
+  令a>=1, b>1是常数，f(n)是定义在b的幂上非负函数.T(n)是定义在b的幂上的递归式
+        T(n) = Om(1) // n=1;  T(n) = aT(n/b) + f(n) //n=b^i
+    其中i是正整数。那么
+      1.若对某个常数x>0,有f(n) = O( n^(logb(a-x)) ),则T(n) = Om( n^(logb(a)) )
+      2.若f(n) = Om( n^(logb(a)) ),则T(n) = Om( n^(logb(a)) * lgn )
+      3.若对某个常数x>0, 有f(n) = Ω( n^(logb(a+x)) )，且对某个常数c<1和所有足够大的n有af(n/b) <= cf(n),则T(n) = Om(f(n))

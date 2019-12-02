@@ -1,0 +1,23 @@
+一、遍历二叉数
+    1.中序遍历
+    INORDER-TREE-WALK(x)
+        if x != NIL
+            INORDER-TREE-WALK(x.left)
+            do somothing for x;
+            INORDER-TREE-WALK(x.right)
+
+    2.先序遍历
+    PREORDER-TREE-WALK(x)
+        if x != NIL
+            do somothing for x;
+            PREORDER-TREE-WALK(x.left)
+            PREORDER-TREE-WALK(x.right)
+    
+    3.后序遍历
+    POSTORDER-TREE-WALK(x)
+        if x != NIL
+            POSTORDER-TREE-WALK(x.left)
+            POSTORDER-TREE-WALK(x.right)
+            do somothing for x;
+    
+    

@@ -1,0 +1,4 @@
+7.1
+  当在一个包含n个元素的数组上运行QUICK-SORT时，假设在PARTITION的第4行所作比较次数为X,那么QUIC-SORT的运行时间为O(X+n)
+  // 第4行 if A[j] <= x   //// x = A[r]
+

@@ -1,0 +1,16 @@
+5.1
+  给定一个空间样本S和S中的一个事件A，设XA = I{A}, 那么E[XA] = Pr{A}
+  // I{A}事件A对应的指示器随机变量
+
+5.2
+  假设应聘者随机出现，算法HIRE-ASSISTANT总的雇佣费用平均情况下为O(ch lnn)
+  // ch 雇佣费用
+
+5.3
+  过程RANDOMiZED-HIRE-ASSISTANT总的雇佣费用期望为O(ch lnn)
+
+5.4
+  假设所有优先级都不同，则过程PREMUTE-BY-SORTING产生输入的均匀随机排列
+
+5.5
+  过程RANDOMiZED-IN-PLACE可以产生均匀随机排列

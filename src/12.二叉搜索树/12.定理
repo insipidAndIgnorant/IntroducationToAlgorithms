@@ -1,0 +1,4 @@
+12.1
+  中序遍历n节点子树需要O(n)
+12.2
+  高为h的二叉搜索树 search, minimum, maximum, successor, predecessor可以在O(h)完成
