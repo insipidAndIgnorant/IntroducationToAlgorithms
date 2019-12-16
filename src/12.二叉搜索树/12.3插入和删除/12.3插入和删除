@@ -1,0 +1,40 @@
+TREEE-INSERT(T,z)
+  y = NIL
+  x = T.root
+  while x != NIL
+    y = x  // 记录终止后x父节点
+    if z.key < y.key
+      x = x.left
+    else
+      x = x.right
+  z.p = y
+  if y == NIL  // tree is empty
+    T.root = z
+  else if z.key < y.key
+    y.left = z
+  else
+    y.right = z
+
+
+TRANS-PLANT(T,u,v)
+  if u.p == NIL
+    T.root = v
+  else if u == u.p.left
+    u.p.left = v
+  else
+    u.p.right = v
+  v.p = u.p
+
+TREE-DELETE(T,z)
+  if z.left == NIL
+    TRANS-PLANT(T, z, z.right)
+  else if z.right == NIL
+    TRANS-PLANT(T, z, z.left)
+  else
+    y = TREE-MINIMUM(z.right) // 1  // z.right在PLANT-3替换， z.left在最后替换
+    if y.p != z
+      TRANS-PLANT(T, y, y.right) // 2
+    TRANS-PLANT(T, z, y) // 3
+    y.left = z.left
+    y.left.p = y  // y.right在PLANT-3中替换 y.p在PLANT-2替换
+

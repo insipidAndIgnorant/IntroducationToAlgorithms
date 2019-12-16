@@ -1,0 +1,71 @@
+12.1
+  a: 
+    O(n^2)
+  b:
+    x.b = false
+    while insert same value:
+    if x.b
+      insert to left
+    else
+      insert to right
+
+  c:
+    x.list = []
+    while insert same value
+    normal insert value
+    x.list.push(value)
+
+  d:
+    worst: O(n^2)
+    每次都在左或右
+
+
+12.2
+  先序遍历, 外加辅助数据记录路径
+  父节点<左子树<右子树
+
+12.3
+  a:
+  在T中有n个节点，所以 ∑x属于T {d(x,T)}也就是所有节点深度之和也就是P(T)
+
+  b:
+  P(L)是左子树总高度，P(R)是右子树总高度，父节点比子节点高1，那么T的总高度
+  = ∑ {左子树每个节点高度+1} + ∑{右子树每个节点高度+1}
+  = P(L) + P(R) + n - 1   (左右子树节点之和=n-1)
+
+  c:
+  设左子树节点i,右子树节点数n-i-1
+  P(T) = P(i) + P(n-i-1) + n-1
+  随机构建时左子树节点数取值区间为[0,n-1]
+  P(n) = 1/n∑i=0~n-1 {P(T)}
+
+  d:
+  左子树和右子树节点数存在相关关系，当i>(n-1)/2时就是左右树节点数相互换而已
+  P(n) = 1/n∑i=0~n-1 {P(i) + P(n-i-1) + n-1}
+       = 1/n∑i=0~n-1 {P(i)} + 1/n∑1=0~n-1 {P(n-i-1)} + 1/n∑i=0~n-1 {n-1}
+       = 2/n∑i=0~n-1 {P(i)} + 1/n∑i=0~n-1 {n-1}
+       = 2P(0)/n + 2/n∑i=1~n-1 {P(i)} + 1/n∑i=0~n-1 {n-1}
+       = 2/n∑i=1~n-1 {P(i)} + 1/n∑i=0~n-1 {n-1}
+       = 2/n∑i=1~n-1 {P(i)} + O(n)
+  e:
+  // by net  利用代入法及7.3
+  P(n) = 2/n∑k=2~(n-1)/2 {P(k)} + O(n)
+       <= 2/n ∑k=2~n-1 (aklgk + b) + O(n)
+       = 2a/n ∑k=2~n-1 {klgk} + 2b(n-2)/n +O(n)        // ∑k=2~n-1 {klgk} <= 1/2 * n^2*lgn - n^2/8
+       <= 2a/n (1/2 * n^2*lgn - n^2/8) + 2b(n-2)/n + O(n)
+       <= anlgn - an/4 + 2b + O(n)
+       = anlgn + b + (O(n)+b-an/4)
+       <= anlgn + b
+
+  f:
+
+12.4
+  a:
+  设k为左子树节点数
+  当根确定时 b = b(k) * b(n-k-1)
+  根有n种，对应左子树0~n-1
+  B(n) = ∑0~n-1 {b(k)* b(n-k-1)}
+
+  b:
+  c:
+  d:  // 参考网上图片
