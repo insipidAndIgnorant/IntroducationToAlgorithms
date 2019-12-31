@@ -1,0 +1,44 @@
+13.3.1
+  性质5会被破坏
+
+
+13.3.2
+  1：  41(b)
+
+  2:      41(b)
+       38(r)
+
+  3:      41(b)             38(b)
+       38(r)        =>   31(r)  41(r)
+     31(r)
+
+  4:       38(b)                     38(r)               38(b)
+       31(r)   41(r)  =>        31(b)     41(b)   =>  31(b)  41(b)
+     12(r)                   12(r)                  12(r)     
+
+  5:         38(b)
+          31(b)  41(b)
+      12(r)  19(r)
+
+  6:         38(b)                    38(b)
+          31(b)  41(b)            31(r)  41(b)
+      12(r)  19(r)     =>      12(b) 19(b)
+     8(r)                     8(r)
+
+
+13.3.3
+  13.5 grandParent.bh+1，但grandP置红，root.bh不变。在grandParent点向下维持了性质
+  13.6 grandParent置红变为右子树，grandParent.child置黑成为新祖父结点， 总黑高不变
+
+
+13.3.4
+  假设为case1造成nil.color为red,
+    那么z在循环时应在root.child应用case1使nil.color=red; 但是此时会因为不满足z.p.color == red而提前终止循环
+  假设插入空树时造成nil.color = red
+    在一开始就不会进入循环
+
+13.3.5
+  在插入新值时,z.color=red;且不会再被改变（n > 1时，z不为根）
+
+13.3.6
+  增加额外空间记录parent,grandParent并传入函数

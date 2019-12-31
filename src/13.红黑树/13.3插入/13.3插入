@@ -1,0 +1,58 @@
+RB-INSERT(T,z)
+  y = T.NIL
+  x = T.root
+  while x != T.NIL
+    y = x
+    x = x.key < z.key ? x.right : x.left
+  if y = T.NIL
+    T.root = z
+  else if z.key < y.key
+    y.right = z
+  else
+    y.left = z
+  z.left = T.NIL
+  z.right = T.NIL
+  z.color = RED
+  RB-INSERT-FIXUP(T, z)
+
+
+RB-INSERT-FIXUP(T, z)
+  while z.p.color == RED
+    if z.p == z.p.p.left
+      uncle = z.p.p.right
+      if uncle.color == RED
+        z.p.color = BLACK
+        uncle.color = BLACK
+        z.p.p.color = RED
+        z = z.p.p
+      else if z == z.p.right
+        z = z.p
+        LEFT-ROTATE(T, z)
+      z.p.color = BLACK
+      z.p.p.color = RED
+      RIGHT-ROTATE(T, z.p.p)
+    else
+      excheng if case
+  
+  T.root.color = BLACK
+
+// 如果z.parent是红色且是z.grandParent的左孩子，那么z.uncle是grandParent的右孩子
+      //// 此时分为三种情况 
+      1：uncle is red
+      2: uncle is black and z is right  
+      3: uncle is black and z is left
+      （在插入前树保持性质，所以grandParent一定是黑色）
+      
+      case1:
+        如果uncle是红色就将parent和uncle置黑，grandParent置红
+        （grandParent.bh+1，但root.bh不变。在grandParent点向下维持了性质，但向上可能违反根黑或者红有两黑,将结点上移两层继续循环）
+      case2:
+        如果uncle是黑色且z是parent右孩子，则左旋parent
+        (将情况转为case3)
+      case3:
+        uncle是黑色且z是parent左孩子，则右旋grandParent并置红，将grandParent.left置黑
+        （用grandP的孩子染黑代替grandP，grandP置红，则总黑高不变且维持了性质）
+      
+      // 最后T.root置黑是因为在修复性质时到了root.p终止（如case1或插入空树没有进入循环），但root被置红，最后进行修复
+      
+// uncle是左孩子时与右孩子情况对称

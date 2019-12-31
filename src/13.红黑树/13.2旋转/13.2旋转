@@ -1,0 +1,40 @@
+LEFT-ROTATE(T, x)
+  y = x.right // 获取y
+
+  // 更新x与y.left关系
+  x.right = y.left 
+  if y.left != NIL
+    y.left.p = x
+
+  // 更新x.p与y关系
+  y.p = x.p
+  if x.p === NIL
+    T.root = y
+  else if x.p.left == x
+    y.p.left = y
+  else
+    y.p.right = y
+
+  // 更新x与y关系
+  y.left = x
+  x.p = y
+
+
+RIGHT-ROTATE(T,x)
+  y = x.left
+
+  x.left = y.right
+  if y.right != NIL
+    y.right.p = x
+
+  y.p = x.p
+  if x.p == NIL
+    T.root = y
+  else if x.p.left == x
+    y.p.left = y
+  else
+    y.p.right = y
+
+  y.right = x
+  x.p = y
+

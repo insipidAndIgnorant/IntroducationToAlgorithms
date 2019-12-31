@@ -1,0 +1,109 @@
+RB-TRANSPLANT(T,u,v)
+  TREE-TRANSPLANT(T,u,v)
+
+
+RB-DELETE(T, z)
+  y = z
+  originColor = y.color
+
+  // 单个孩子与TREE-DELETE相同，增加记录新结点x 
+  if z.left == T.NIL
+    x = z.right 
+    RB-TRANSPLANT(T,z,z.right)
+  else if z.right == T.NIL
+    x = z.left
+    RB-TRANSPLANT(T,z,z.left)
+  else
+    y = TREE-MINIMUM(z.right)
+    originColor = y.color
+    x = y.right
+
+    // 有两个孩子时，类似TREE-DELETE
+    // 如果后继是z子结点
+    if y.p == z
+      x.p = y
+    else
+      // 否则先用后继y的右子结点代替y // case2: 俩孩子
+      RB-TRANSPLANT(T,y,y.right)
+      y.right = z.right
+      y.right.p = y
+
+    RB-TRANSPLANT(T,z,y)
+    y.left = z.left
+    y.left.p = y
+    y.color = z.color
+
+  // originColor可以看成：记录谁被从树中删除（case2可以看成z后继y被删除,z值更新为y值）
+  if originColor == BLACK
+    RB-DELETE-FIXUP(T, x)
+
+
+// 双重黑色结点： 子结点黑色补充到父节点（如删除一个子结点为T.NIL的黑色节点, 或者在消除双重黑色节点时产生）
+
+RB-DELETE-FIXUP(T, x)
+  // 始终保持x为双重黑非根结点，保持w指向x.borther(由于x双重黑色，borther不可能为NIL)
+  // 不论何种情况，都是在保证 根节点到变换前后某叶结点黑高不变的前提下，（不论该叶结点移至哪个子树）
+  while x != T.root and x.color == BLACK
+    // 当x为左孩子时
+    if x == x.p.left
+      // w为x borther
+      w = x.p.right
+      // case1: w is RED, so w has black child
+      // so we can change w & x.p 's  color, then left-rotate x.p
+      // after new w is old w's child and it's black
+      // so into case 2,3,4 
+      // 父节点与兄弟交换颜色再左旋，使旧父节点移至左子树，父结点颜色不变，左右子树黑高不变，进入其他情况
+      if w.color == RED
+        w.color = BLACK
+        x.p.color = RED
+        LEFT-ROTATE(T, x.p)
+        w = x.p.right
+      
+      // case2: w is black and w has to balck child
+      // make w's color become red, x = x.p => make extra black moving up
+      // if is case1 into, while will end(can't keep double black), new x is red-black, so it's color is red
+      // 使兄弟置红， 左右子树黑高相等，向上转移
+      // 如果由1进入2，则x.p.color = red, 循环终止
+      if w.left.color == BLACK and w.right.color == BLACK
+        w.color = RED
+        x = x.p
+
+      
+      else
+        // case3: w is black, and left child is red, right child is black
+        // we can right-rotate w and make w.left become new w, then exchange old w and old w.left 's color
+        // now into case4:
+        // w.left置黑右旋代替w
+        // w置红右旋，保持old w原黑高，
+        // 并进入w.right = red情况
+        if w.right.color == BLACK
+          w.left.color = BLACK
+          w.color = RED
+          RIGHT-ROTATE(T, w)
+          w = x.p.right
+
+        // case4: w.is balck and w.right is red, don't care w.left
+        // by change some node's color and once left-rotate, remove extra black
+        // w染为x.p.color，在左旋后就代替x.p
+        // x.p置黑，左旋后移至左子树
+        // x.p.right置黑， 左旋后在w旧位置，代替w
+        // 如何移除额外黑色不是很明白
+        w.color = x.p.color
+        x.p.color = BLACK
+        w.right.color = BLACK
+        LEFT-ROTATE(T, x.p)
+        x = T.root
+    else
+      same as left case
+  x.color = BLACK
+
+
+
+
+// 1.在删除时，始终保持根节点到叶节点黑色节点数不变
+// 2.循环内始终保证x是黑色，
+// 3.删除主要看兄弟节点
+//   3.1 兄弟为红则兄弟与父互换颜色再旋转，使新兄弟为黑色，进入其他情况
+//   3.2 兄弟黑，其子双黑。 则兄置红，此时父颜色不定，向上修复
+//   3.3 兄弟黑，右子黑。 左子与父换色，旋转使父为新右子成红，左子成新父为黑，进入3.4
+//   3.4 兄弟黑，右子红。使兄为其父色，父、兄右子为黑，左旋使兄占父位，旧兄左子（颜色补丁）为旧父（已置黑）右子，保持根至叶黑数 
